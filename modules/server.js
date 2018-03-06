@@ -1,6 +1,6 @@
 var http = require('http');
 var colors = require('colors');
-
+var fs = require('fs');
 var handlers = require('./handlers'); // nasz moduł
 
 function start() {
@@ -26,7 +26,7 @@ function start() {
     }
   }
 
-  http.createServer(onRequest).listen(9000);
+  http.createServer(onRequest).listen(8080);
 
   console.log("Uruchomiono serwer!".green);
 }
