@@ -1,34 +1,37 @@
 var http = require('http');
 var colors = require('colors');
-var fs = require('fs');
-var handlers = require('./handlers'); // nasz moduł
+var handlers = require('../modules/handlers');
 
 function start() {
-  function onRequest(request, response) {
-    console.log("Odebrano zapytanie.".green);
-    console.log("Zapytanie " + request.url + " odebrane.");
+	function onRequest(request, response) {
 
-    response.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
+		console.log("Odebrano zapytanie".green);
+		console.log("Zapytanie " + request.url + " odebrane.");
 
-    switch (request.url) { // switch rozróżniający zapytania
-        case '/':
-        case '/start':
-            handlers.welcome(request, response);
-            break;
-        case '/upload':
-            handlers.upload(request, response);
-            break;
-        case '/show':
-            handlers.show(request, response);
-            break;
-        default:
-        	handlers.error(request, response);
-    }
-  }
+		response.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
 
-  http.createServer(onRequest).listen(8080);
+		switch (request.url) {
 
-  console.log("Uruchomiono serwer!".green);
+			case '/':
+			case '/start':
+				handlers.welcome(request, response);
+				break;
+			case '/upload':
+				handlers.upload(request, response);
+				break;
+			case '/show':
+    			handlers.show(request, response);
+    			break;
+			default:
+				handlers.error(request, response);
+
+		}
+
+	}
+
+	http.createServer(onRequest).listen(8080);
+	console.log("Uruchomiono serwer!".green);	
+
 }
 
 exports.start = start;
